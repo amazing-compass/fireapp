@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:orientation="vertical"
+    ohos:margin="8vp"
+    >
+
+    <DirectionalLayout
+        ohos:height="100vp"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal">
+
+        <Image
+            ohos:height="100vp"
+            ohos:width="100vp"
+            ohos:scale_mode="clip_center"
+            ohos:image_src="$media:ic_user_portrait">
+        </Image>
+
+        <Text
+            ohos:id="$+id:username"
+            ohos:text_size="100fp"
+            ohos:height="match_parent"
+            ohos:width="80fp">
+        </Text>
+
+        <Text
+            ohos:id="$+id:userid"
+            ohos:text_size="100fp"
+            ohos:text="我是userid"
+            ohos:height="match_parent"
+            ohos:width="80fp">
+        </Text>
+
+
+    </DirectionalLayout>
+
+    <Button
+        ohos:id="$+id:changepwd_btn"
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:text="修 改 密 码"
+        ohos:text_color="#ffffff"
+        ohos:text_size="13fp"
+        ohos:padding="10vp"
+        ohos:background_element="#ff383b"
+        ohos:layout_alignment="horizontal_center"
+        ohos:top_margin="15vp"></Button>
+
+</DirectionalLayout>

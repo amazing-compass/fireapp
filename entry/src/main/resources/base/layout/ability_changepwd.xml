@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:orientation="vertical"
+    ohos:background_element="$graphic:background_common"
+    ohos:padding="5vp"
+    >
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        >
+
+        <Text
+            ohos:height="match_content"
+            ohos:width="match_parent"
+            ohos:text="用户名："
+            ohos:text_size="15fp"
+            ohos:margin="5vp"
+            ohos:padding="10vp"></Text>
+
+        <Text
+            ohos:id="$+id:change_username"
+            ohos:height="match_content"
+            ohos:width="match_parent"
+            ohos:text_size="15fp"
+            ohos:margin="5vp"
+            ohos:padding="10vp">
+        </Text>
+
+
+
+
+    </DirectionalLayout>
+
+    <TextField
+        ohos:id="$+id:old_pwd_textfield"
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:hint="原密码"
+        ohos:text_size="15fp"
+        ohos:text_color="#777777"
+        ohos:text_alignment="vertical_center"
+        ohos:margin="5vp"
+        ohos:padding="10vp"
+        ohos:layout_alignment="horizontal_center"
+        ohos:background_element="$graphic:background_textfield"></TextField>
+
+    <TextField
+        ohos:id="$+id:new_pwd_textfield"
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:hint="新密码"
+        ohos:text_size="15fp"
+        ohos:text_color="#777777"
+        ohos:text_alignment="vertical_center"
+        ohos:margin="5vp"
+        ohos:padding="10vp"
+        ohos:layout_alignment="horizontal_center"
+        ohos:background_element="$graphic:background_textfield"></TextField>
+
+    <Button
+        ohos:id="$+id:change_btn"
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:text="修 改 密 码"
+        ohos:text_color="#ffffff"
+        ohos:text_size="13fp"
+        ohos:padding="10vp"
+        ohos:background_element="#ff383b"
+        ohos:layout_alignment="horizontal_center"
+        ohos:top_margin="15vp"></Button>
+</DirectionalLayout>
