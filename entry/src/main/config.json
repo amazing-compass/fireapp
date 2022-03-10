@@ -46,6 +46,30 @@
         "type": "page",
         "launchType": "standard"
       }
+    ],
+    "reqPermissions": [
+      {
+        "reason": "",
+        "usedScene": {
+          "ability": [
+            "default"
+          ],
+          "when": "always"
+        },
+        "name": "ohos.permission.GET_BUNDLE_INFO"
+      }
+    ],
+    "reqPermissions": [
+      {
+        "usedScene": {
+          "ability": [
+            "com.example.harmonysearchsdk.MainAbility"
+          ],
+          "when": "always"
+        },
+        "reason": "request internet",
+        "name": "ohos.permission.INTERNET"
+      }
     ]
   }
 }

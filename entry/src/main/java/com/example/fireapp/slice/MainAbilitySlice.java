@@ -7,11 +7,17 @@ import com.example.fireapp.provider.TabPageSliderProvider;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.IntentParams;
-import ohos.agp.components.*;
+import ohos.agp.components.Button;
+import ohos.agp.components.PageSlider;
+import ohos.agp.components.TabList;
+import ohos.agp.components.Text;
+import ohos.agp.components.element.PixelMapElement;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
+import ohos.global.resource.NotExistException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,12 +39,17 @@ public class MainAbilitySlice extends AbilitySlice {
         }
 
 
+        int[] icons = new int[3];
+        icons[0] = ResourceTable.Media_ic_public_home;
+        icons[1] = ResourceTable.Media_ic_gallery_map_all;
+        icons[2] = ResourceTable.Media_ic_public_settings;
         //初始化Tablist
         TabList tablist = findComponentById(ResourceTable.Id_tab_list);
         String[] tablistTags = {"首页","地图","我的"};
         for(int i=0;i<tablistTags.length;i++){
             TabList.Tab tab = tablist.new Tab(this);
             tab.setText(tablistTags[i]);
+            setTabImage(tab,icons[i]);
             tablist.addTab(tab);
         }
 
@@ -139,5 +150,15 @@ public class MainAbilitySlice extends AbilitySlice {
         DatabaseHelper helper = new DatabaseHelper(this);
         OrmContext context = helper.getOrmContext("UserDataBase", "user.db", UserDataBase.class);
         return context;
+    }
+
+    void setTabImage(TabList.Tab tab, int image_id){
+        try{
+            tab.setIconElement(new PixelMapElement(getResourceManager().getResource(image_id)));
+        }catch(IOException e){
+            e.printStackTrace();
+        }catch(NotExistException e) {
+            e.printStackTrace();
+        }
     }
 }

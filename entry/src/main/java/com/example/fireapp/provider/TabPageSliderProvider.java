@@ -18,8 +18,6 @@ public class TabPageSliderProvider extends PageSliderProvider {
         this.abilitySlice = abilitySlice;
     }
 
-
-
     @Override
     public int getCount() {
         return layoutFileIds.size();
@@ -35,7 +33,6 @@ public class TabPageSliderProvider extends PageSliderProvider {
 
     @Override
     public void destroyPageFromContainer(ComponentContainer componentContainer, int i, Object o) {
-
         componentContainer.removeComponent((Component) o);
     }
 

@@ -40,6 +40,9 @@ public class LoginAbilitySlice extends AbilitySlice implements Component.Clicked
         loginPwd = (TextField)findComponentById(ResourceTable.Id_login_pwd_textfield);
         login = (Button)findComponentById(ResourceTable.Id_login_btn);
 
+        loginName.setText("");
+        loginPwd.setText("");
+
         login.setClickedListener(this);
 
 

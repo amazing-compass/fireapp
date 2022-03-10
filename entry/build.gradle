@@ -21,10 +21,16 @@ ohos {
 }
 
 dependencies {
+    implementation files("libs/mapslibrary-release.har")
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.har'])
     testImplementation 'junit:junit:4.13.1'
     ohosTestImplementation 'com.huawei.ohos.testkit:runner:1.0.0.200'
+    implementation 'com.huawei.agconnect:agconnect-core-harmony:1.0.0.300'
 }
 decc {
     supportType = ['html','xml']
 }
+
+apply plugin: 'com.huawei.agconnect'
+
+
