@@ -57,9 +57,7 @@
           "when": "always"
         },
         "name": "ohos.permission.GET_BUNDLE_INFO"
-      }
-    ],
-    "reqPermissions": [
+      },
       {
         "usedScene": {
           "ability": [

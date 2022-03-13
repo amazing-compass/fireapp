@@ -1,5 +1,7 @@
 package com.example.fireapp.slice;
 
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.MapView;
 import com.example.fireapp.ResourceTable;
 import com.example.fireapp.orm.User;
 import com.example.fireapp.orm.UserDataBase;
@@ -7,10 +9,7 @@ import com.example.fireapp.provider.TabPageSliderProvider;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.IntentParams;
-import ohos.agp.components.Button;
-import ohos.agp.components.PageSlider;
-import ohos.agp.components.TabList;
-import ohos.agp.components.Text;
+import ohos.agp.components.*;
 import ohos.agp.components.element.PixelMapElement;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
@@ -24,13 +23,12 @@ import java.util.List;
 public class MainAbilitySlice extends AbilitySlice {
 
     int id=0;
+    private MapView mapView;
 
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setUIContent(ResourceTable.Layout_ability_main);
-
-
 
         if(intent!=null){
             IntentParams params = intent.getParams();
@@ -71,10 +69,9 @@ public class MainAbilitySlice extends AbilitySlice {
                 if(index==0){
 
                 }else if(index==1){
-
+                    initMapView();
                 }else if(index==2){
                     inituser(pageSlider,id);
-
                 }
             }
 
@@ -135,10 +132,38 @@ public class MainAbilitySlice extends AbilitySlice {
 
     }
 
+    private void initMapView() {
+        mapView = new MapView(this);
+
+        mapView.onCreate(null);
+        mapView.onResume();
+        DirectionalLayout.LayoutConfig config = new DirectionalLayout.LayoutConfig(
+                DirectionalLayout.LayoutConfig.MATCH_PARENT, DirectionalLayout.LayoutConfig.MATCH_PARENT);
+        mapView.setLayoutConfig(config);
+        super.setUIContent(mapView);
+
+        AMap aMap = mapView.getMap();
+        aMap.setOnMapLoadedListener(new AMap.OnMapLoadedListener() {
+            @Override
+            public void onMapLoaded() {
+                // todo
+            }
+        });
+    }
+
 
     @Override
     public void onActive() {
         super.onActive();
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mapView != null) {
+            mapView.onDestroy();
+        }
     }
 
     @Override
