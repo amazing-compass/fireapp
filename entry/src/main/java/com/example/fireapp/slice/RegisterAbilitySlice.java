@@ -3,13 +3,11 @@ package com.example.fireapp.slice;
 import com.example.fireapp.ResourceTable;
 import com.example.fireapp.Utils;
 import com.example.fireapp.orm.User;
-import com.example.fireapp.orm.UserDataBase;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.TextField;
-import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
 
@@ -37,7 +35,7 @@ public class RegisterAbilitySlice extends AbilitySlice implements Component.Clic
     @Override
     public void onClick(Component component) {
 
-        OrmContext context = getUserOrmContext();
+        OrmContext context = Utils.getUserOrmContext(this);
 
         String UserName = registername.getText();
         String UserPwd = registerpwd.getText();
@@ -81,12 +79,6 @@ public class RegisterAbilitySlice extends AbilitySlice implements Component.Clic
         Intent intent1 = new Intent();
         present(new LoginAbilitySlice(),intent1);
 
-    }
-
-    private OrmContext getUserOrmContext() {
-        DatabaseHelper helper = new DatabaseHelper(this);
-        OrmContext context = helper.getOrmContext("UserDataBase", "user.db", UserDataBase.class);
-        return context;
     }
 
 

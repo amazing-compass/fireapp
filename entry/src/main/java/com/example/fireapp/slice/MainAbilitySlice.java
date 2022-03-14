@@ -3,15 +3,15 @@ package com.example.fireapp.slice;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.example.fireapp.ResourceTable;
+import com.example.fireapp.Utils;
+import com.example.fireapp.orm.Token;
 import com.example.fireapp.orm.User;
-import com.example.fireapp.orm.UserDataBase;
 import com.example.fireapp.provider.TabPageSliderProvider;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.IntentParams;
 import ohos.agp.components.*;
 import ohos.agp.components.element.PixelMapElement;
-import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
 import ohos.global.resource.NotExistException;
@@ -33,7 +33,6 @@ public class MainAbilitySlice extends AbilitySlice {
         if(intent!=null){
             IntentParams params = intent.getParams();
             id = (int) params.getParam("userid");
-            System.out.println(id+"~~~~~~~~~~~~~~~~~~~~~~~");
         }
 
 
@@ -43,6 +42,7 @@ public class MainAbilitySlice extends AbilitySlice {
         icons[2] = ResourceTable.Media_ic_public_settings;
         //初始化Tablist
         TabList tablist = findComponentById(ResourceTable.Id_tab_list);
+        tablist.removeAllComponents();
         String[] tablistTags = {"首页","地图","我的"};
         for(int i=0;i<tablistTags.length;i++){
             TabList.Tab tab = tablist.new Tab(this);
@@ -58,6 +58,7 @@ public class MainAbilitySlice extends AbilitySlice {
         layoutFileIds.add(ResourceTable.Layout_ability_main_user);
 
         PageSlider pageSlider = findComponentById(ResourceTable.Id_page_slider);
+        //pageSlider.removeAllComponents();
         pageSlider.setProvider(new TabPageSliderProvider(layoutFileIds,this));
 
         //tablist与pageslider联动
@@ -103,7 +104,7 @@ public class MainAbilitySlice extends AbilitySlice {
 
     private void inituser(PageSlider pageSlider, int id) {
 
-        OrmContext context = getUserOrmContext();
+        OrmContext context = Utils.getUserOrmContext(this);
 
         OrmPredicates predicates = new OrmPredicates(User.class)
                 .equalTo("userid",id);
@@ -119,15 +120,25 @@ public class MainAbilitySlice extends AbilitySlice {
         username.setText(users.get(0).getUserName());
 
 
-
+        //修改密码
         Button changepwdbtn = findComponentById(ResourceTable.Id_changepwd_btn);
-
         changepwdbtn.setClickedListener(component -> {
             Intent intent = new Intent();
             intent.setParam("userid",id);
-            //System.out.println(id+"~~~~~~~~~~~~~~~~~~~");
             present(new changepwdAbilitySlice(),intent);
         });
+
+        //退出登录
+        Button quitbtn = findComponentById(ResourceTable.Id_quit_btn);
+        quitbtn.setClickedListener(component -> {
+            OrmContext context1 = Utils.getTokenOrmContext(this);
+            OrmPredicates predicates1 = new OrmPredicates(Token.class);
+            predicates1.clear();
+            context1.delete(predicates1);
+            Intent intent1 = new Intent();
+            present(new LoginAbilitySlice(),intent1);
+        });
+
 
 
     }
@@ -139,8 +150,6 @@ public class MainAbilitySlice extends AbilitySlice {
         mapView.onResume();
         DirectionalLayout.LayoutConfig config = new DirectionalLayout.LayoutConfig(
                 DirectionalLayout.LayoutConfig.MATCH_PARENT, DirectionalLayout.LayoutConfig.MATCH_PARENT);
-//        DirectionalLayout.LayoutConfig config = new DirectionalLayout.LayoutConfig(
-//                DirectionalLayout.LayoutConfig.MATCH_PARENT, 100);
         mapView.setLayoutConfig(config);
         super.setUIContent(mapView);
 
@@ -171,12 +180,6 @@ public class MainAbilitySlice extends AbilitySlice {
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
-    }
-
-    private OrmContext getUserOrmContext() {
-        DatabaseHelper helper = new DatabaseHelper(this);
-        OrmContext context = helper.getOrmContext("UserDataBase", "user.db", UserDataBase.class);
-        return context;
     }
 
     void setTabImage(TabList.Tab tab, int image_id){

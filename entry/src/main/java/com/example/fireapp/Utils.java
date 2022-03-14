@@ -1,5 +1,6 @@
 package com.example.fireapp;
 
+import com.example.fireapp.orm.UserDataBase;
 import ohos.agp.colors.RgbColor;
 import ohos.agp.components.DirectionalLayout;
 import ohos.agp.components.Text;
@@ -9,6 +10,8 @@ import ohos.agp.utils.LayoutAlignment;
 import ohos.agp.utils.TextAlignment;
 import ohos.agp.window.dialog.ToastDialog;
 import ohos.app.Context;
+import ohos.data.DatabaseHelper;
+import ohos.data.orm.OrmContext;
 
 import static ohos.agp.components.ComponentContainer.LayoutConfig.MATCH_CONTENT;
 import static ohos.agp.components.ComponentContainer.LayoutConfig.MATCH_PARENT;
@@ -55,6 +58,17 @@ public class Utils {
                 .setAlignment(LayoutAlignment.BOTTOM + LayoutAlignment.HORIZONTAL_CENTER) // 居中下方显示
                 .setOffset(0, 200) // 距离底边距200px距离
                 .show();
+    }
+
+
+    public static OrmContext getUserOrmContext(Context context) {
+        DatabaseHelper helper = new DatabaseHelper(context);
+        return helper.getOrmContext("UserDataBase", "user.db", UserDataBase.class);
+    }
+
+    public static OrmContext getTokenOrmContext(Context context) {
+        DatabaseHelper helper = new DatabaseHelper(context);
+        return helper.getOrmContext("Token", "token.db", UserDataBase.class);
     }
 
 

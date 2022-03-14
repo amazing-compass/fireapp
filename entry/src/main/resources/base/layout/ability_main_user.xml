@@ -49,4 +49,16 @@
         ohos:layout_alignment="horizontal_center"
         ohos:top_margin="15vp"></Button>
 
+    <Button
+        ohos:id="$+id:quit_btn"
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:text="退 出 登 录"
+        ohos:text_color="#ffffff"
+        ohos:text_size="13fp"
+        ohos:padding="10vp"
+        ohos:background_element="#ff383b"
+        ohos:layout_alignment="horizontal_center"
+        ohos:top_margin="15vp"></Button>
+
 </DirectionalLayout>

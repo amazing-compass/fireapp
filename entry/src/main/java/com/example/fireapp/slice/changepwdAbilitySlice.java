@@ -3,7 +3,6 @@ package com.example.fireapp.slice;
 import com.example.fireapp.ResourceTable;
 import com.example.fireapp.Utils;
 import com.example.fireapp.orm.User;
-import com.example.fireapp.orm.UserDataBase;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.IntentParams;
@@ -11,7 +10,6 @@ import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.Text;
 import ohos.agp.components.TextField;
-import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
 import ohos.data.rdb.ValuesBucket;
@@ -45,7 +43,7 @@ public class changepwdAbilitySlice extends AbilitySlice implements Component.Cli
         id = (int)params.getParam("userid");
 
         //查询数据库中userid==id的用户
-        OrmContext context = getUserOrmContext();
+        OrmContext context = Utils.getUserOrmContext(this);
         OrmPredicates predicates = new OrmPredicates(User.class)
                 .equalTo("userid",id);
         users = context.query(predicates);
@@ -59,18 +57,12 @@ public class changepwdAbilitySlice extends AbilitySlice implements Component.Cli
     }
 
 
-    private OrmContext getUserOrmContext() {
-        DatabaseHelper helper = new DatabaseHelper(this);
-        OrmContext context = helper.getOrmContext("UserDataBase", "user.db", UserDataBase.class);
-        return context;
-    }
-
 
     //修改用户的密码
     @Override
     public void onClick(Component component) {
         if(users.get(0).getPassword().equals(oldpwd.getText())){
-            OrmContext context = getUserOrmContext();
+            OrmContext context = Utils.getUserOrmContext(this);
             OrmPredicates predicates = new OrmPredicates(User.class)
                     .equalTo("userid",id);
 

@@ -2,16 +2,14 @@ package com.example.fireapp.slice;
 
 import com.example.fireapp.ResourceTable;
 import com.example.fireapp.Utils;
-import com.example.fireapp.orm.User;
-import com.example.fireapp.orm.UserDataBase;
 import com.example.fireapp.orm.Token;
+import com.example.fireapp.orm.User;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.Text;
 import ohos.agp.components.TextField;
-import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
 
@@ -31,7 +29,7 @@ public class LoginAbilitySlice extends AbilitySlice implements Component.Clicked
         super.setUIContent(ResourceTable.Layout_ability_login);
 
         //查询token数据库中的值：如果数据库不为空，静默登录；如果数据库为空，需要重新登录
-        OrmContext context = getTokenOrmContext();
+        OrmContext context = Utils.getTokenOrmContext(this);
         OrmPredicates predicates = new OrmPredicates(Token.class);
         predicates.clear();
 
@@ -74,7 +72,7 @@ public class LoginAbilitySlice extends AbilitySlice implements Component.Clicked
     @Override
     public void onClick(Component component) {
 
-        OrmContext context = getUserOrmContext();
+        OrmContext context = Utils.getUserOrmContext(this);
         String userName = loginName.getText();
         String pwd = loginPwd.getText();
 
@@ -94,7 +92,7 @@ public class LoginAbilitySlice extends AbilitySlice implements Component.Clicked
         System.out.println(users.get(0).getUserid()+"~~~~~~~~~~~~~~~~~~~~~~~");
         if(users.get(0).getPassword().equals(pwd)){
             Utils.showToast(this,"登录成功");
-            OrmContext context1 = getTokenOrmContext();
+            OrmContext context1 = Utils.getTokenOrmContext(this);
             Token token = new Token(users.get(0).getUserid());
             context1.insert(token);
             context1.flush();
@@ -109,13 +107,5 @@ public class LoginAbilitySlice extends AbilitySlice implements Component.Clicked
         }
     }
 
-    private OrmContext getUserOrmContext() {
-        DatabaseHelper helper = new DatabaseHelper(this);
-        return helper.getOrmContext("UserDataBase", "user.db", UserDataBase.class);
-    }
 
-    private OrmContext getTokenOrmContext() {
-        DatabaseHelper helper = new DatabaseHelper(this);
-        return helper.getOrmContext("Token", "token.db", UserDataBase.class);
-    }
 }
