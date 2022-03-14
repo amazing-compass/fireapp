@@ -139,6 +139,8 @@ public class MainAbilitySlice extends AbilitySlice {
         mapView.onResume();
         DirectionalLayout.LayoutConfig config = new DirectionalLayout.LayoutConfig(
                 DirectionalLayout.LayoutConfig.MATCH_PARENT, DirectionalLayout.LayoutConfig.MATCH_PARENT);
+//        DirectionalLayout.LayoutConfig config = new DirectionalLayout.LayoutConfig(
+//                DirectionalLayout.LayoutConfig.MATCH_PARENT, 100);
         mapView.setLayoutConfig(config);
         super.setUIContent(mapView);
 

@@ -4,6 +4,7 @@ import com.example.fireapp.ResourceTable;
 import com.example.fireapp.Utils;
 import com.example.fireapp.orm.User;
 import com.example.fireapp.orm.UserDataBase;
+import com.example.fireapp.orm.Token;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
@@ -29,25 +30,46 @@ public class LoginAbilitySlice extends AbilitySlice implements Component.Clicked
         super.onStart(intent);
         super.setUIContent(ResourceTable.Layout_ability_login);
 
-        register = (Text) findComponentById(ResourceTable.Id_register);
+        //查询token数据库中的值：如果数据库不为空，静默登录；如果数据库为空，需要重新登录
+        OrmContext context = getTokenOrmContext();
+        OrmPredicates predicates = new OrmPredicates(Token.class);
+        predicates.clear();
 
-        register.setClickedListener(component -> {
+        //context要及时关闭
+        List<Token> Tokens = context.query(predicates);
+        context.close();
+
+
+        if(Tokens.isEmpty()){
+            //如果数据库为空
+            register = findComponentById(ResourceTable.Id_register);
+
+            //注册账号按钮的响应事件
+            register.setClickedListener(component -> {
+                Intent intent1 = new Intent();
+                present(new RegisterAbilitySlice(), intent1);
+            });
+
+            loginName = findComponentById(ResourceTable.Id_login_name_textfield);
+            loginPwd = findComponentById(ResourceTable.Id_login_pwd_textfield);
+            login = findComponentById(ResourceTable.Id_login_btn);
+
+            loginName.setText("");
+            loginPwd.setText("");
+
+            login.setClickedListener(this);
+
+        }else{
+            //如果数据库不为空
+            //跳转到主页面
             Intent intent1 = new Intent();
-            present(new RegisterAbilitySlice(), intent1);
-        });
-
-        loginName = (TextField)findComponentById(ResourceTable.Id_login_name_textfield);
-        loginPwd = (TextField)findComponentById(ResourceTable.Id_login_pwd_textfield);
-        login = (Button)findComponentById(ResourceTable.Id_login_btn);
-
-        loginName.setText("");
-        loginPwd.setText("");
-
-        login.setClickedListener(this);
-
-
-
+            intent1.setParam("userid", Tokens.get(0).getUseraccount());
+            present(new MainAbilitySlice(),intent1);
+        }
     }
+
+
+
 
     @Override
     public void onClick(Component component) {
@@ -72,6 +94,12 @@ public class LoginAbilitySlice extends AbilitySlice implements Component.Clicked
         System.out.println(users.get(0).getUserid()+"~~~~~~~~~~~~~~~~~~~~~~~");
         if(users.get(0).getPassword().equals(pwd)){
             Utils.showToast(this,"登录成功");
+            OrmContext context1 = getTokenOrmContext();
+            Token token = new Token(users.get(0).getUserid());
+            context1.insert(token);
+            context1.flush();
+            context1.close();
+
             //跳转到主页面
             Intent intent1 = new Intent();
             intent1.setParam("userid",users.get(0).getUserid());
@@ -83,7 +111,11 @@ public class LoginAbilitySlice extends AbilitySlice implements Component.Clicked
 
     private OrmContext getUserOrmContext() {
         DatabaseHelper helper = new DatabaseHelper(this);
-        OrmContext context = helper.getOrmContext("UserDataBase", "user.db", UserDataBase.class);
-        return context;
+        return helper.getOrmContext("UserDataBase", "user.db", UserDataBase.class);
+    }
+
+    private OrmContext getTokenOrmContext() {
+        DatabaseHelper helper = new DatabaseHelper(this);
+        return helper.getOrmContext("Token", "token.db", UserDataBase.class);
     }
 }
