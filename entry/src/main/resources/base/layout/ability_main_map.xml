@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DirectionalLayout
+    ohos:id="$+id:map_directionlayout"
     xmlns:ohos="http://schemas.huawei.com/res/ohos"
     ohos:height="match_parent"
     ohos:width="match_parent"
     ohos:orientation="vertical">
 
-    <Text
-        ohos:height="match_parent"
-        ohos:width="match_parent"
-        ohos:text="map"
-         />
+<!--    <Text-->
+<!--        ohos:height="match_parent"-->
+<!--        ohos:width="match_parent"-->
+<!--        ohos:text="map"-->
+<!--         />-->
 
 
 </DirectionalLayout>

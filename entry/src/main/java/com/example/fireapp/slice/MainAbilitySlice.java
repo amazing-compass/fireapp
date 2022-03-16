@@ -148,10 +148,15 @@ public class MainAbilitySlice extends AbilitySlice {
 
         mapView.onCreate(null);
         mapView.onResume();
+        DirectionalLayout layout = findComponentById(ResourceTable.Id_map_directionlayout);
+
+//        DirectionalLayout.LayoutConfig config = new DirectionalLayout.LayoutConfig(
+//                DirectionalLayout.LayoutConfig.MATCH_PARENT, DirectionalLayout.LayoutConfig.MATCH_PARENT);
         DirectionalLayout.LayoutConfig config = new DirectionalLayout.LayoutConfig(
-                DirectionalLayout.LayoutConfig.MATCH_PARENT, DirectionalLayout.LayoutConfig.MATCH_PARENT);
+                DirectionalLayout.LayoutConfig.MATCH_PARENT, 1785);
         mapView.setLayoutConfig(config);
-        super.setUIContent(mapView);
+        layout.addComponent(mapView);
+
 
         AMap aMap = mapView.getMap();
         aMap.setOnMapLoadedListener(new AMap.OnMapLoadedListener() {
