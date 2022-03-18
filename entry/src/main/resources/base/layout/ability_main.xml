@@ -8,7 +8,7 @@
         ohos:id="$+id:page_slider"
         ohos:height="match_parent"
         ohos:width="match_parent"
-        ohos:background_element="#a0b0c0"
+        ohos:background_element="$graphic:background_common"
         ohos:layout_alignment="bottom"></PageSlider>
 
     <TabList

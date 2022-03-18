@@ -8,7 +8,6 @@ public class MyApplication extends AbilityPackage {
     public void onInitialize() {
 
         String key = "fdfe1484ba8c946fe6b9976b02ab33bd";
-
         // 地图
         MapsInitializer.setApiKey(key);
 

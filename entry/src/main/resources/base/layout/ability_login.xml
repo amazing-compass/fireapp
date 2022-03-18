@@ -4,7 +4,6 @@
     ohos:height="match_parent"
     ohos:width="match_parent"
     ohos:orientation="vertical"
-
     ohos:background_element="$graphic:background_common"
     ohos:padding="5vp"
     >

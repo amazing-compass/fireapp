@@ -5,10 +5,89 @@
     ohos:width="match_parent"
     ohos:orientation="vertical">
 
-    <Text
-        ohos:height="match_parent"
+    <DirectionalLayout
+        ohos:left_margin="20vp"
+        ohos:right_margin="20vp"
+        ohos:top_margin="10vp"
+        ohos:bottom_margin="10vp"
+        ohos:height="30vp"
         ohos:width="match_parent"
-        ohos:text_color="#123456"/>
+        ohos:orientation="horizontal">
+
+        <Text
+            ohos:height="match_parent"
+            ohos:width="match_content"
+            ohos:text="Hi,"
+            ohos:text_color="#000000"
+            ohos:text_size="25fp"/>
+
+        <Text
+            ohos:id="$+id:index_username"
+            ohos:text_size="25fp"
+            ohos:text_color="#000000"
+            ohos:height="match_parent"
+            ohos:width="match_content"/>
+    </DirectionalLayout>
+
+    <Image
+        ohos:right_margin="10vp"
+        ohos:left_margin="10vp"
+        ohos:id="$+id:index_image"
+        ohos:image_src="$media:index"
+        ohos:scale_mode="stretch"
+        ohos:layout_alignment="horizontal_center"
+        ohos:height="100vp"
+        ohos:width="320vp"/>
+
+    <DirectionalLayout
+        ohos:margin="20vp"
+        ohos:height="match_content"
+        ohos:width="match_parent">
+
+
+        <DirectionalLayout
+            ohos:orientation="horizontal"
+            ohos:height="20vp"
+            ohos:width="match_parent">
+
+            <Image
+                ohos:height="15vp"
+                ohos:width="15vp"
+                ohos:scale_mode="stretch"
+                ohos:layout_alignment="vertical_center"
+                ohos:image_src="$media:ic_public_view_grid"/>
+
+            <Text
+                ohos:text="实时监测"
+                ohos:layout_alignment="vertical_center"
+                ohos:text_font="sans-serif"
+                ohos:text_size="15fp"
+                ohos:text_color="#000000"
+                ohos:height="match_parent"
+                ohos:width="match_content"/>
+
+
+            <Text
+                ohos:text="查看更多"
+                ohos:layout_alignment="vertical_center"
+                ohos:text_size="12fp"
+                ohos:left_margin="180vp"
+                ohos:text_color="#888888"
+                ohos:height="match_parent"
+                ohos:width="match_content"/>
+
+
+        </DirectionalLayout>
+
+
+
+
+    </DirectionalLayout>
+
+
+
+
+
 
 
 </DirectionalLayout>
